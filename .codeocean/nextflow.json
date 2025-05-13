@@ -1,0 +1,114 @@
+{
+	"version": 1,
+	"processes": [
+		{
+			"name": "capsule_aind_z_1_puncta_detection_1",
+			"capsule": {
+				"id": "065f17f9-1aeb-45e6-bf7f-744adfd9fed3",
+				"name": "aind-z1-puncta-detection",
+				"slug": "8452575"
+			},
+			"resources": {
+				"cpus": 16,
+				"memory": 61,
+				"gpus": 1
+			},
+			"inputs": [
+				{
+					"id": "Hdu52H212Hevt5t7",
+					"source_id": "capsule_aind_z_1_pipeline_dispatcher_2",
+					"type": "capsule",
+					"name": "aind-z1-pipeline-dispatcher",
+					"source_path": "spot_channel_*.json",
+					"flatten": true
+				}
+			],
+			"results": {
+				"id": "065f17f9-1aeb-45e6-bf7f-744adfd9fed3",
+				"target_path": "puncta_detection"
+			}
+		},
+		{
+			"name": "capsule_aind_z_1_pipeline_dispatcher_2",
+			"capsule": {
+				"id": "e2535162-90c0-4303-910b-1d6b7faa924a",
+				"name": "aind-z1-pipeline-dispatcher",
+				"slug": "7757962"
+			},
+			"resources": {
+				"cpus": 4,
+				"memory": 32
+			},
+			"inputs": [
+				{
+					"id": "jL1NGSVmK4YcHNds",
+					"source_id": "33dabcf4-ef15-46f8-b791-f3c45876544c",
+					"type": "dataset",
+					"name": "single_tile_r1_dataset",
+					"source_path": "single_tile_r1_dataset/SPIM",
+					"collect": true
+				}
+			]
+		},
+		{
+			"name": "capsule_aind_z_1_get_multichannel_3",
+			"capsule": {
+				"id": "296bbc9d-a6b6-4b70-ab8a-8e6b15dba3aa",
+				"name": "aind-z1-get-multichannel",
+				"slug": "6086715"
+			},
+			"resources": {
+				"cpus": 16,
+				"memory": 128
+			},
+			"inputs": [
+				{
+					"id": "IDU1cGrgyOIaFKDo",
+					"source_id": "capsule_aind_z_1_pipeline_dispatcher_2",
+					"type": "capsule",
+					"name": "aind-z1-pipeline-dispatcher",
+					"source_path": "spot_channel_*.json",
+					"flatten": true
+				},
+				{
+					"id": "GwqtRxbbRnY77jT9",
+					"source_id": "capsule_aind_z_1_puncta_detection_1",
+					"type": "capsule",
+					"name": "aind-z1-puncta-detection",
+					"target_path": "spots_folder",
+					"collect": true
+				}
+			],
+			"results": {
+				"id": "296bbc9d-a6b6-4b70-ab8a-8e6b15dba3aa",
+				"target_path": "puncta_statistics"
+			}
+		},
+		{
+			"name": "capsule_aind_large_scale_cellpose_4",
+			"capsule": {
+				"id": "28ca2d26-8e34-4d27-8b69-56afac9938d8",
+				"name": "aind-large-scale-cellpose",
+				"slug": "7654769"
+			},
+			"resources": {
+				"cpus": 32,
+				"memory": 128,
+				"gpus": 1
+			},
+			"inputs": [
+				{
+					"id": "CJSHg0QDmmQkh0Pu",
+					"source_id": "33dabcf4-ef15-46f8-b791-f3c45876544c",
+					"type": "dataset",
+					"name": "single_tile_r1_dataset",
+					"source_path": "single_tile_r1_dataset/"
+				}
+			],
+			"results": {
+				"id": "28ca2d26-8e34-4d27-8b69-56afac9938d8",
+				"target_path": "cell_segmentation"
+			}
+		}
+	]
+}
