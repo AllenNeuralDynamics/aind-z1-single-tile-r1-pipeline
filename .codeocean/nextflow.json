@@ -15,6 +15,14 @@
 			},
 			"inputs": [
 				{
+					"id": "wIEh3B6xWqYJmz3n",
+					"source_id": "capsule_aind_large_scale_cellpose_4",
+					"type": "capsule",
+					"name": "aind-large-scale-cellpose",
+					"source_path": "segmentation_mask.zarr",
+					"collect": true
+				},
+				{
 					"id": "Hdu52H212Hevt5t7",
 					"source_id": "capsule_aind_z_1_pipeline_dispatcher_2",
 					"type": "capsule",
@@ -33,7 +41,10 @@
 			"capsule": {
 				"id": "e2535162-90c0-4303-910b-1d6b7faa924a",
 				"name": "aind-z1-pipeline-dispatcher",
-				"slug": "7757962"
+				"slug": "7757962",
+				"arguments": [
+					"dispatch-spots"
+				]
 			},
 			"resources": {
 				"cpus": 4,
@@ -45,7 +56,16 @@
 					"source_id": "33dabcf4-ef15-46f8-b791-f3c45876544c",
 					"type": "dataset",
 					"name": "single_tile_r1_dataset",
-					"source_path": "single_tile_r1_dataset/SPIM",
+					"source_path": "single_tile_r1_dataset/SPIM/derivatives/processing_manifest.json",
+					"collect": true
+				},
+				{
+					"id": "zio1bMAcCjUMD3kh",
+					"source_id": "33dabcf4-ef15-46f8-b791-f3c45876544c",
+					"type": "dataset",
+					"name": "single_tile_r1_dataset",
+					"source_path": "single_tile_r1_dataset/*.json",
+					"target_path": "input_aind_metadata",
 					"collect": true
 				}
 			]
@@ -88,7 +108,7 @@
 			"name": "capsule_aind_large_scale_cellpose_4",
 			"capsule": {
 				"id": "28ca2d26-8e34-4d27-8b69-56afac9938d8",
-				"name": "aind-large-scale-cellpose",
+				"name": "aind-large-scale-cellpose_single_tile_copy",
 				"slug": "7654769"
 			},
 			"resources": {
@@ -102,7 +122,16 @@
 					"source_id": "33dabcf4-ef15-46f8-b791-f3c45876544c",
 					"type": "dataset",
 					"name": "single_tile_r1_dataset",
-					"source_path": "single_tile_r1_dataset/"
+					"source_path": "single_tile_r1_dataset/",
+					"collect": true
+				},
+				{
+					"id": "gxQJ6E1uOwquA811",
+					"source_id": "33dabcf4-ef15-46f8-b791-f3c45876544c",
+					"type": "dataset",
+					"name": "single_tile_r1_dataset",
+					"source_path": "single_tile_r1_dataset/SPIM/derivatives/processing_manifest.json",
+					"collect": true
 				}
 			],
 			"results": {
