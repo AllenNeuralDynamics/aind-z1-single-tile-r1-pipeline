@@ -6,7 +6,9 @@
 			"capsule": {
 				"id": "065f17f9-1aeb-45e6-bf7f-744adfd9fed3",
 				"name": "aind-z1-puncta-detection",
-				"slug": "8452575"
+				"slug": "8452575",
+				"commit": "ed17b82e938ef1e28090878982f977a779c4a2d5",
+				"image_tag": "bcc5f35afc0a673c64a3c8fc1138f81b"
 			},
 			"resources": {
 				"cpus": 16,
@@ -14,6 +16,14 @@
 				"gpus": 1
 			},
 			"inputs": [
+				{
+					"id": "3owTzcbhEGsyoSH1",
+					"source_id": "33dabcf4-ef15-46f8-b791-f3c45876544c",
+					"type": "dataset",
+					"name": "single_tile_r1_dataset",
+					"source_path": "single_tile_r1_dataset/SPIM/*.zarr",
+					"collect": true
+				},
 				{
 					"id": "wIEh3B6xWqYJmz3n",
 					"source_id": "capsule_aind_large_scale_cellpose_4",
@@ -42,6 +52,8 @@
 				"id": "e2535162-90c0-4303-910b-1d6b7faa924a",
 				"name": "aind-z1-pipeline-dispatcher",
 				"slug": "7757962",
+				"commit": "a9ff9658ea24287e624121bdf362908ba28679b6",
+				"image_tag": "8afb77b1e88a8a02acb76ecca5bb1d13",
 				"arguments": [
 					"dispatch-spots"
 				]
@@ -75,13 +87,23 @@
 			"capsule": {
 				"id": "296bbc9d-a6b6-4b70-ab8a-8e6b15dba3aa",
 				"name": "aind-z1-get-multichannel",
-				"slug": "6086715"
+				"slug": "6086715",
+				"commit": "42a9d20f671b32f687e29b4699b1ba4b666250e3",
+				"image_tag": "d5c231ca41058ee8230777ed38482e9d"
 			},
 			"resources": {
 				"cpus": 16,
 				"memory": 128
 			},
 			"inputs": [
+				{
+					"id": "Hw3uinR1iSAalJgI",
+					"source_id": "33dabcf4-ef15-46f8-b791-f3c45876544c",
+					"type": "dataset",
+					"name": "single_tile_r1_dataset",
+					"source_path": "single_tile_r1_dataset/SPIM/*.zarr",
+					"collect": true
+				},
 				{
 					"id": "IDU1cGrgyOIaFKDo",
 					"source_id": "capsule_aind_z_1_pipeline_dispatcher_2",
@@ -109,7 +131,9 @@
 			"capsule": {
 				"id": "28ca2d26-8e34-4d27-8b69-56afac9938d8",
 				"name": "aind-large-scale-cellpose_single_tile_copy",
-				"slug": "7654769"
+				"slug": "7654769",
+				"commit": "268136d0083da2bf0bccaa4719e6a2eea0a4562a",
+				"image_tag": "2059f8f61a74beb251d7c55c925d0154"
 			},
 			"resources": {
 				"cpus": 32,
@@ -122,7 +146,7 @@
 					"source_id": "33dabcf4-ef15-46f8-b791-f3c45876544c",
 					"type": "dataset",
 					"name": "single_tile_r1_dataset",
-					"source_path": "single_tile_r1_dataset/",
+					"source_path": "single_tile_r1_dataset/SPIM/*.zarr",
 					"collect": true
 				},
 				{

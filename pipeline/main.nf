@@ -1,23 +1,25 @@
 #!/usr/bin/env nextflow
-// hash:sha256:068c18d08d43b9b316484a9b163bacf610806962cdd9857dce7e15fbb6bbe8ca
+// hash:sha256:4c18a96159ed6cc1d75aadd01012bdf1385b37d01657d091e0d84cb1c0a117e4
 
 nextflow.enable.dsl = 1
 
 params.single_tile_r1_dataset_url = 's3://aind-open-data/HCR_772643_2025-02-26_10-00-00'
 
-capsule_aind_large_scale_cellpose_4_to_capsule_aind_z_1_puncta_detection_1_1 = channel.create()
-capsule_aind_z_1_pipeline_dispatcher_2_to_capsule_aind_z_1_puncta_detection_1_2 = channel.create()
-single_tile_r1_dataset_to_aind_z1_pipeline_dispatcher_3 = channel.fromPath(params.single_tile_r1_dataset_url + "/SPIM/derivatives/processing_manifest.json", type: 'any')
-single_tile_r1_dataset_to_aind_z1_pipeline_dispatcher_4 = channel.fromPath(params.single_tile_r1_dataset_url + "/*.json", type: 'any')
-capsule_aind_z_1_pipeline_dispatcher_2_to_capsule_aind_z_1_get_multichannel_3_5 = channel.create()
-capsule_aind_z_1_puncta_detection_1_to_capsule_aind_z_1_get_multichannel_3_6 = channel.create()
-single_tile_r1_dataset_to_aind_large_scale_cellpose_single_tile_copy_7 = channel.fromPath(params.single_tile_r1_dataset_url + "/", type: 'any')
-single_tile_r1_dataset_to_aind_large_scale_cellpose_single_tile_copy_8 = channel.fromPath(params.single_tile_r1_dataset_url + "/SPIM/derivatives/processing_manifest.json", type: 'any')
+single_tile_r1_dataset_to_aind_z1_puncta_detection_1 = channel.fromPath(params.single_tile_r1_dataset_url + "/SPIM/*.zarr", type: 'any')
+capsule_aind_large_scale_cellpose_4_to_capsule_aind_z_1_puncta_detection_1_2 = channel.create()
+capsule_aind_z_1_pipeline_dispatcher_2_to_capsule_aind_z_1_puncta_detection_1_3 = channel.create()
+single_tile_r1_dataset_to_aind_z1_pipeline_dispatcher_4 = channel.fromPath(params.single_tile_r1_dataset_url + "/SPIM/derivatives/processing_manifest.json", type: 'any')
+single_tile_r1_dataset_to_aind_z1_pipeline_dispatcher_5 = channel.fromPath(params.single_tile_r1_dataset_url + "/*.json", type: 'any')
+single_tile_r1_dataset_to_aind_z1_get_multichannel_6 = channel.fromPath(params.single_tile_r1_dataset_url + "/SPIM/*.zarr", type: 'any')
+capsule_aind_z_1_pipeline_dispatcher_2_to_capsule_aind_z_1_get_multichannel_3_7 = channel.create()
+capsule_aind_z_1_puncta_detection_1_to_capsule_aind_z_1_get_multichannel_3_8 = channel.create()
+single_tile_r1_dataset_to_aind_large_scale_cellpose_single_tile_copy_9 = channel.fromPath(params.single_tile_r1_dataset_url + "/SPIM/*.zarr", type: 'any')
+single_tile_r1_dataset_to_aind_large_scale_cellpose_single_tile_copy_10 = channel.fromPath(params.single_tile_r1_dataset_url + "/SPIM/derivatives/processing_manifest.json", type: 'any')
 
 // capsule - aind-z1-puncta-detection
 process capsule_aind_z_1_puncta_detection_1 {
 	tag 'capsule-8452575'
-	container "$REGISTRY_HOST/capsule/065f17f9-1aeb-45e6-bf7f-744adfd9fed3"
+	container "$REGISTRY_HOST/capsule/065f17f9-1aeb-45e6-bf7f-744adfd9fed3:bcc5f35afc0a673c64a3c8fc1138f81b"
 
 	cpus 16
 	memory '61 GB'
@@ -27,12 +29,13 @@ process capsule_aind_z_1_puncta_detection_1 {
 	publishDir "$RESULTS_PATH/puncta_detection", saveAs: { filename -> new File(filename).getName() }
 
 	input:
-	path 'capsule/data/' from capsule_aind_large_scale_cellpose_4_to_capsule_aind_z_1_puncta_detection_1_1.collect()
-	path 'capsule/data/' from capsule_aind_z_1_pipeline_dispatcher_2_to_capsule_aind_z_1_puncta_detection_1_2.flatten()
+	path 'capsule/data/' from single_tile_r1_dataset_to_aind_z1_puncta_detection_1.collect()
+	path 'capsule/data/' from capsule_aind_large_scale_cellpose_4_to_capsule_aind_z_1_puncta_detection_1_2.collect()
+	path 'capsule/data/' from capsule_aind_z_1_pipeline_dispatcher_2_to_capsule_aind_z_1_puncta_detection_1_3.flatten()
 
 	output:
 	path 'capsule/results/*'
-	path 'capsule/results/*' into capsule_aind_z_1_puncta_detection_1_to_capsule_aind_z_1_get_multichannel_3_6
+	path 'capsule/results/*' into capsule_aind_z_1_puncta_detection_1_to_capsule_aind_z_1_get_multichannel_3_8
 
 	script:
 	"""
@@ -50,6 +53,7 @@ process capsule_aind_z_1_puncta_detection_1 {
 
 	echo "[${task.tag}] cloning git repo..."
 	git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-8452575.git" capsule-repo
+	git -C capsule-repo checkout ed17b82e938ef1e28090878982f977a779c4a2d5 --quiet
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
@@ -65,18 +69,18 @@ process capsule_aind_z_1_puncta_detection_1 {
 // capsule - aind-z1-pipeline-dispatcher
 process capsule_aind_z_1_pipeline_dispatcher_2 {
 	tag 'capsule-7757962'
-	container "$REGISTRY_HOST/capsule/e2535162-90c0-4303-910b-1d6b7faa924a"
+	container "$REGISTRY_HOST/capsule/e2535162-90c0-4303-910b-1d6b7faa924a:8afb77b1e88a8a02acb76ecca5bb1d13"
 
 	cpus 4
 	memory '32 GB'
 
 	input:
-	path 'capsule/data/' from single_tile_r1_dataset_to_aind_z1_pipeline_dispatcher_3.collect()
-	path 'capsule/data/input_aind_metadata/' from single_tile_r1_dataset_to_aind_z1_pipeline_dispatcher_4.collect()
+	path 'capsule/data/' from single_tile_r1_dataset_to_aind_z1_pipeline_dispatcher_4.collect()
+	path 'capsule/data/input_aind_metadata/' from single_tile_r1_dataset_to_aind_z1_pipeline_dispatcher_5.collect()
 
 	output:
-	path 'capsule/results/spot_channel_*.json' into capsule_aind_z_1_pipeline_dispatcher_2_to_capsule_aind_z_1_puncta_detection_1_2
-	path 'capsule/results/spot_channel_*.json' into capsule_aind_z_1_pipeline_dispatcher_2_to_capsule_aind_z_1_get_multichannel_3_5
+	path 'capsule/results/spot_channel_*.json' into capsule_aind_z_1_pipeline_dispatcher_2_to_capsule_aind_z_1_puncta_detection_1_3
+	path 'capsule/results/spot_channel_*.json' into capsule_aind_z_1_pipeline_dispatcher_2_to_capsule_aind_z_1_get_multichannel_3_7
 
 	script:
 	"""
@@ -94,6 +98,7 @@ process capsule_aind_z_1_pipeline_dispatcher_2 {
 
 	echo "[${task.tag}] cloning git repo..."
 	git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-7757962.git" capsule-repo
+	git -C capsule-repo checkout a9ff9658ea24287e624121bdf362908ba28679b6 --quiet
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
@@ -109,7 +114,7 @@ process capsule_aind_z_1_pipeline_dispatcher_2 {
 // capsule - aind-z1-get-multichannel
 process capsule_aind_z_1_get_multichannel_3 {
 	tag 'capsule-6086715'
-	container "$REGISTRY_HOST/capsule/296bbc9d-a6b6-4b70-ab8a-8e6b15dba3aa"
+	container "$REGISTRY_HOST/capsule/296bbc9d-a6b6-4b70-ab8a-8e6b15dba3aa:d5c231ca41058ee8230777ed38482e9d"
 
 	cpus 16
 	memory '128 GB'
@@ -117,8 +122,9 @@ process capsule_aind_z_1_get_multichannel_3 {
 	publishDir "$RESULTS_PATH/puncta_statistics", saveAs: { filename -> new File(filename).getName() }
 
 	input:
-	path 'capsule/data/' from capsule_aind_z_1_pipeline_dispatcher_2_to_capsule_aind_z_1_get_multichannel_3_5.flatten()
-	path 'capsule/data/spots_folder/' from capsule_aind_z_1_puncta_detection_1_to_capsule_aind_z_1_get_multichannel_3_6.collect()
+	path 'capsule/data/' from single_tile_r1_dataset_to_aind_z1_get_multichannel_6.collect()
+	path 'capsule/data/' from capsule_aind_z_1_pipeline_dispatcher_2_to_capsule_aind_z_1_get_multichannel_3_7.flatten()
+	path 'capsule/data/spots_folder/' from capsule_aind_z_1_puncta_detection_1_to_capsule_aind_z_1_get_multichannel_3_8.collect()
 
 	output:
 	path 'capsule/results/*'
@@ -139,6 +145,7 @@ process capsule_aind_z_1_get_multichannel_3 {
 
 	echo "[${task.tag}] cloning git repo..."
 	git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-6086715.git" capsule-repo
+	git -C capsule-repo checkout 42a9d20f671b32f687e29b4699b1ba4b666250e3 --quiet
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
@@ -154,7 +161,7 @@ process capsule_aind_z_1_get_multichannel_3 {
 // capsule - aind-large-scale-cellpose_single_tile_copy
 process capsule_aind_large_scale_cellpose_4 {
 	tag 'capsule-7654769'
-	container "$REGISTRY_HOST/capsule/28ca2d26-8e34-4d27-8b69-56afac9938d8"
+	container "$REGISTRY_HOST/capsule/28ca2d26-8e34-4d27-8b69-56afac9938d8:2059f8f61a74beb251d7c55c925d0154"
 
 	cpus 32
 	memory '128 GB'
@@ -164,11 +171,11 @@ process capsule_aind_large_scale_cellpose_4 {
 	publishDir "$RESULTS_PATH/cell_segmentation", saveAs: { filename -> new File(filename).getName() }
 
 	input:
-	path 'capsule/data' from single_tile_r1_dataset_to_aind_large_scale_cellpose_single_tile_copy_7.collect()
-	path 'capsule/data/' from single_tile_r1_dataset_to_aind_large_scale_cellpose_single_tile_copy_8.collect()
+	path 'capsule/data/' from single_tile_r1_dataset_to_aind_large_scale_cellpose_single_tile_copy_9.collect()
+	path 'capsule/data/' from single_tile_r1_dataset_to_aind_large_scale_cellpose_single_tile_copy_10.collect()
 
 	output:
-	path 'capsule/results/segmentation_mask.zarr' into capsule_aind_large_scale_cellpose_4_to_capsule_aind_z_1_puncta_detection_1_1
+	path 'capsule/results/segmentation_mask.zarr' into capsule_aind_large_scale_cellpose_4_to_capsule_aind_z_1_puncta_detection_1_2
 	path 'capsule/results/*'
 
 	script:
@@ -187,6 +194,7 @@ process capsule_aind_large_scale_cellpose_4 {
 
 	echo "[${task.tag}] cloning git repo..."
 	git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-7654769.git" capsule-repo
+	git -C capsule-repo checkout 268136d0083da2bf0bccaa4719e6a2eea0a4562a --quiet
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
