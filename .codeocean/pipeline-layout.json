@@ -1,24 +1,6 @@
 {
 	"edges": [
 		{
-			"id": "xy-edge__capsule_aind_large_scale_cellpose_4-results",
-			"selected": false,
-			"source": "capsule_aind_large_scale_cellpose_4",
-			"target": "results"
-		},
-		{
-			"id": "xy-edge__capsule_aind_z_1_puncta_detection_1-results",
-			"selected": false,
-			"source": "capsule_aind_z_1_puncta_detection_1",
-			"target": "results"
-		},
-		{
-			"id": "xy-edge__capsule_aind_z_1_get_multichannel_3-results",
-			"selected": false,
-			"source": "capsule_aind_z_1_get_multichannel_3",
-			"target": "results"
-		},
-		{
 			"id": "xy-edge__capsule_aind_z_1_puncta_detection_1-capsule_aind_z_1_get_multichannel_3",
 			"selected": false,
 			"source": "capsule_aind_z_1_puncta_detection_1",
@@ -63,6 +45,29 @@
 			"id": "xy-edge__33dabcf4-ef15-46f8-b791-f3c45876544c-capsule_aind_z_1_get_multichannel_3",
 			"source": "33dabcf4-ef15-46f8-b791-f3c45876544c",
 			"target": "capsule_aind_z_1_get_multichannel_3"
+		},
+		{
+			"id": "xy-edge__capsule_aind_z_1_get_multichannel_3-capsule_aind_z_1_pipeline_dispatcher_5",
+			"selected": false,
+			"source": "capsule_aind_z_1_get_multichannel_3",
+			"target": "capsule_aind_z_1_pipeline_dispatcher_5"
+		},
+		{
+			"id": "xy-edge__capsule_aind_z_1_pipeline_dispatcher_5-results",
+			"source": "capsule_aind_z_1_pipeline_dispatcher_5",
+			"target": "results"
+		},
+		{
+			"id": "xy-edge__capsule_aind_z_1_puncta_detection_1-capsule_aind_z_1_pipeline_dispatcher_5",
+			"selected": false,
+			"source": "capsule_aind_z_1_puncta_detection_1",
+			"target": "capsule_aind_z_1_pipeline_dispatcher_5"
+		},
+		{
+			"id": "xy-edge__capsule_aind_large_scale_cellpose_4-capsule_aind_z_1_pipeline_dispatcher_5",
+			"selected": false,
+			"source": "capsule_aind_large_scale_cellpose_4",
+			"target": "capsule_aind_z_1_pipeline_dispatcher_5"
 		}
 	],
 	"nodes": [
@@ -82,9 +87,9 @@
 			"id": "results",
 			"position": {
 				"x": 416.24497353901984,
-				"y": 860.2330117243753
+				"y": 891.6784279160488
 			},
-			"selected": true,
+			"selected": false,
 			"type": "results"
 		},
 		{
@@ -131,12 +136,24 @@
 			},
 			"selected": false,
 			"type": "dataset"
+		},
+		{
+			"data": {
+				"capsule_id": "e2535162-90c0-4303-910b-1d6b7faa924a"
+			},
+			"id": "capsule_aind_z_1_pipeline_dispatcher_5",
+			"position": {
+				"x": 275.6052460259622,
+				"y": 576.268395755153
+			},
+			"selected": true,
+			"type": "capsule"
 		}
 	],
-	"timestamp": 1747260230054,
+	"timestamp": 1747350435735,
 	"viewport": {
-		"x": 144.2399898375959,
-		"y": 306.3976223470103,
+		"x": 82.23998983759589,
+		"y": 274.3976223470103,
 		"zoom": 0.41341478582313124
 	}
 }

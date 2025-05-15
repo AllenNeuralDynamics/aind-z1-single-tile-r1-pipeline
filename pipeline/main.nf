@@ -1,5 +1,5 @@
 #!/usr/bin/env nextflow
-// hash:sha256:4c18a96159ed6cc1d75aadd01012bdf1385b37d01657d091e0d84cb1c0a117e4
+// hash:sha256:c759f1317854850eee1b89945fcabec0dce3ee7a688ab6b6470c3fcbd5bfba85
 
 nextflow.enable.dsl = 1
 
@@ -15,6 +15,9 @@ capsule_aind_z_1_pipeline_dispatcher_2_to_capsule_aind_z_1_get_multichannel_3_7 
 capsule_aind_z_1_puncta_detection_1_to_capsule_aind_z_1_get_multichannel_3_8 = channel.create()
 single_tile_r1_dataset_to_aind_large_scale_cellpose_single_tile_copy_9 = channel.fromPath(params.single_tile_r1_dataset_url + "/SPIM/*.zarr", type: 'any')
 single_tile_r1_dataset_to_aind_large_scale_cellpose_single_tile_copy_10 = channel.fromPath(params.single_tile_r1_dataset_url + "/SPIM/derivatives/processing_manifest.json", type: 'any')
+capsule_aind_large_scale_cellpose_4_to_capsule_aind_z_1_pipeline_dispatcher_5_11 = channel.create()
+capsule_aind_z_1_puncta_detection_1_to_capsule_aind_z_1_pipeline_dispatcher_5_12 = channel.create()
+capsule_aind_z_1_get_multichannel_3_to_capsule_aind_z_1_pipeline_dispatcher_5_13 = channel.create()
 
 // capsule - aind-z1-puncta-detection
 process capsule_aind_z_1_puncta_detection_1 {
@@ -26,16 +29,14 @@ process capsule_aind_z_1_puncta_detection_1 {
 	accelerator 1
 	label 'gpu'
 
-	publishDir "$RESULTS_PATH/puncta_detection", saveAs: { filename -> new File(filename).getName() }
-
 	input:
 	path 'capsule/data/' from single_tile_r1_dataset_to_aind_z1_puncta_detection_1.collect()
 	path 'capsule/data/' from capsule_aind_large_scale_cellpose_4_to_capsule_aind_z_1_puncta_detection_1_2.collect()
 	path 'capsule/data/' from capsule_aind_z_1_pipeline_dispatcher_2_to_capsule_aind_z_1_puncta_detection_1_3.flatten()
 
 	output:
-	path 'capsule/results/*'
 	path 'capsule/results/*' into capsule_aind_z_1_puncta_detection_1_to_capsule_aind_z_1_get_multichannel_3_8
+	path 'capsule/results/*' into capsule_aind_z_1_puncta_detection_1_to_capsule_aind_z_1_pipeline_dispatcher_5_12
 
 	script:
 	"""
@@ -98,7 +99,7 @@ process capsule_aind_z_1_pipeline_dispatcher_2 {
 
 	echo "[${task.tag}] cloning git repo..."
 	git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-7757962.git" capsule-repo
-	git -C capsule-repo checkout a9ff9658ea24287e624121bdf362908ba28679b6 --quiet
+	git -C capsule-repo checkout 4e0d4527fd68f7cfe2e51ddb6f6b24e1fe9964bd --quiet
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
@@ -119,15 +120,13 @@ process capsule_aind_z_1_get_multichannel_3 {
 	cpus 16
 	memory '128 GB'
 
-	publishDir "$RESULTS_PATH/puncta_statistics", saveAs: { filename -> new File(filename).getName() }
-
 	input:
 	path 'capsule/data/' from single_tile_r1_dataset_to_aind_z1_get_multichannel_6.collect()
 	path 'capsule/data/' from capsule_aind_z_1_pipeline_dispatcher_2_to_capsule_aind_z_1_get_multichannel_3_7.flatten()
 	path 'capsule/data/spots_folder/' from capsule_aind_z_1_puncta_detection_1_to_capsule_aind_z_1_get_multichannel_3_8.collect()
 
 	output:
-	path 'capsule/results/*'
+	path 'capsule/results/*' into capsule_aind_z_1_get_multichannel_3_to_capsule_aind_z_1_pipeline_dispatcher_5_13
 
 	script:
 	"""
@@ -145,7 +144,7 @@ process capsule_aind_z_1_get_multichannel_3 {
 
 	echo "[${task.tag}] cloning git repo..."
 	git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-6086715.git" capsule-repo
-	git -C capsule-repo checkout 42a9d20f671b32f687e29b4699b1ba4b666250e3 --quiet
+	git -C capsule-repo checkout 253284c3d181e02832df2de32f6f5c39de6ce13f --quiet
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
@@ -168,15 +167,13 @@ process capsule_aind_large_scale_cellpose_4 {
 	accelerator 1
 	label 'gpu'
 
-	publishDir "$RESULTS_PATH/cell_segmentation", saveAs: { filename -> new File(filename).getName() }
-
 	input:
 	path 'capsule/data/' from single_tile_r1_dataset_to_aind_large_scale_cellpose_single_tile_copy_9.collect()
 	path 'capsule/data/' from single_tile_r1_dataset_to_aind_large_scale_cellpose_single_tile_copy_10.collect()
 
 	output:
 	path 'capsule/results/segmentation_mask.zarr' into capsule_aind_large_scale_cellpose_4_to_capsule_aind_z_1_puncta_detection_1_2
-	path 'capsule/results/*'
+	path 'capsule/results/*' into capsule_aind_large_scale_cellpose_4_to_capsule_aind_z_1_pipeline_dispatcher_5_11
 
 	script:
 	"""
@@ -194,7 +191,7 @@ process capsule_aind_large_scale_cellpose_4 {
 
 	echo "[${task.tag}] cloning git repo..."
 	git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-7654769.git" capsule-repo
-	git -C capsule-repo checkout 268136d0083da2bf0bccaa4719e6a2eea0a4562a --quiet
+	git -C capsule-repo checkout cc062c088e437d5f6a52dae6b4ed92c468bbaba5 --quiet
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
@@ -202,6 +199,53 @@ process capsule_aind_large_scale_cellpose_4 {
 	cd capsule/code
 	chmod +x run
 	./run
+
+	echo "[${task.tag}] completed!"
+	"""
+}
+
+// capsule - aind-z1-pipeline-dispatcher
+process capsule_aind_z_1_pipeline_dispatcher_5 {
+	tag 'capsule-7757962'
+	container "$REGISTRY_HOST/capsule/e2535162-90c0-4303-910b-1d6b7faa924a:8afb77b1e88a8a02acb76ecca5bb1d13"
+
+	cpus 4
+	memory '32 GB'
+
+	publishDir "$RESULTS_PATH", saveAs: { filename -> new File(filename).getName() }
+
+	input:
+	path 'capsule/data/cell_segmentation/' from capsule_aind_large_scale_cellpose_4_to_capsule_aind_z_1_pipeline_dispatcher_5_11.collect()
+	path 'capsule/data/puncta_detection/' from capsule_aind_z_1_puncta_detection_1_to_capsule_aind_z_1_pipeline_dispatcher_5_12.collect()
+	path 'capsule/data/puncta_statistics/' from capsule_aind_z_1_get_multichannel_3_to_capsule_aind_z_1_pipeline_dispatcher_5_13.collect()
+
+	output:
+	path 'capsule/results/*'
+
+	script:
+	"""
+	#!/usr/bin/env bash
+	set -e
+
+	export CO_CAPSULE_ID=e2535162-90c0-4303-910b-1d6b7faa924a
+	export CO_CPUS=4
+	export CO_MEMORY=34359738368
+
+	mkdir -p capsule
+	mkdir -p capsule/data && ln -s \$PWD/capsule/data /data
+	mkdir -p capsule/results && ln -s \$PWD/capsule/results /results
+	mkdir -p capsule/scratch && ln -s \$PWD/capsule/scratch /scratch
+
+	echo "[${task.tag}] cloning git repo..."
+	git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-7757962.git" capsule-repo
+	git -C capsule-repo checkout 4e0d4527fd68f7cfe2e51ddb6f6b24e1fe9964bd --quiet
+	mv capsule-repo/code capsule/code
+	rm -rf capsule-repo
+
+	echo "[${task.tag}] running capsule..."
+	cd capsule/code
+	chmod +x run
+	./run clean_up_single_tile_r1
 
 	echo "[${task.tag}] completed!"
 	"""

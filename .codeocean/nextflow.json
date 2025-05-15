@@ -40,11 +40,7 @@
 					"source_path": "spot_channel_*.json",
 					"flatten": true
 				}
-			],
-			"results": {
-				"id": "065f17f9-1aeb-45e6-bf7f-744adfd9fed3",
-				"target_path": "puncta_detection"
-			}
+			]
 		},
 		{
 			"name": "capsule_aind_z_1_pipeline_dispatcher_2",
@@ -52,7 +48,7 @@
 				"id": "e2535162-90c0-4303-910b-1d6b7faa924a",
 				"name": "aind-z1-pipeline-dispatcher",
 				"slug": "7757962",
-				"commit": "a9ff9658ea24287e624121bdf362908ba28679b6",
+				"commit": "4e0d4527fd68f7cfe2e51ddb6f6b24e1fe9964bd",
 				"image_tag": "8afb77b1e88a8a02acb76ecca5bb1d13",
 				"arguments": [
 					"dispatch-spots"
@@ -88,7 +84,7 @@
 				"id": "296bbc9d-a6b6-4b70-ab8a-8e6b15dba3aa",
 				"name": "aind-z1-get-multichannel",
 				"slug": "6086715",
-				"commit": "42a9d20f671b32f687e29b4699b1ba4b666250e3",
+				"commit": "253284c3d181e02832df2de32f6f5c39de6ce13f",
 				"image_tag": "d5c231ca41058ee8230777ed38482e9d"
 			},
 			"resources": {
@@ -120,11 +116,7 @@
 					"target_path": "spots_folder",
 					"collect": true
 				}
-			],
-			"results": {
-				"id": "296bbc9d-a6b6-4b70-ab8a-8e6b15dba3aa",
-				"target_path": "puncta_statistics"
-			}
+			]
 		},
 		{
 			"name": "capsule_aind_large_scale_cellpose_4",
@@ -132,7 +124,7 @@
 				"id": "28ca2d26-8e34-4d27-8b69-56afac9938d8",
 				"name": "aind-large-scale-cellpose_single_tile_copy",
 				"slug": "7654769",
-				"commit": "268136d0083da2bf0bccaa4719e6a2eea0a4562a",
+				"commit": "cc062c088e437d5f6a52dae6b4ed92c468bbaba5",
 				"image_tag": "2059f8f61a74beb251d7c55c925d0154"
 			},
 			"resources": {
@@ -157,10 +149,52 @@
 					"source_path": "single_tile_r1_dataset/SPIM/derivatives/processing_manifest.json",
 					"collect": true
 				}
+			]
+		},
+		{
+			"name": "capsule_aind_z_1_pipeline_dispatcher_5",
+			"capsule": {
+				"id": "e2535162-90c0-4303-910b-1d6b7faa924a",
+				"name": "aind-z1-pipeline-dispatcher",
+				"slug": "7757962",
+				"commit": "4e0d4527fd68f7cfe2e51ddb6f6b24e1fe9964bd",
+				"image_tag": "8afb77b1e88a8a02acb76ecca5bb1d13",
+				"arguments": [
+					"clean_up_single_tile_r1"
+				]
+			},
+			"resources": {
+				"cpus": 4,
+				"memory": 32
+			},
+			"inputs": [
+				{
+					"id": "z6QKMIu17g3HQhV5",
+					"source_id": "capsule_aind_large_scale_cellpose_4",
+					"type": "capsule",
+					"name": "aind-large-scale-cellpose_single_tile_copy",
+					"target_path": "cell_segmentation",
+					"collect": true
+				},
+				{
+					"id": "Sn6RmEtoHPtjTHe7",
+					"source_id": "capsule_aind_z_1_puncta_detection_1",
+					"type": "capsule",
+					"name": "aind-z1-puncta-detection",
+					"target_path": "puncta_detection",
+					"collect": true
+				},
+				{
+					"id": "jkarVtr1mRBLUDrR",
+					"source_id": "capsule_aind_z_1_get_multichannel_3",
+					"type": "capsule",
+					"name": "aind-z1-get-multichannel",
+					"target_path": "puncta_statistics",
+					"collect": true
+				}
 			],
 			"results": {
-				"id": "28ca2d26-8e34-4d27-8b69-56afac9938d8",
-				"target_path": "cell_segmentation"
+				"id": "e2535162-90c0-4303-910b-1d6b7faa924a"
 			}
 		}
 	]
