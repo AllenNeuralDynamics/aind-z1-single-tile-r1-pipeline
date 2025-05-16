@@ -48,7 +48,6 @@
 		},
 		{
 			"id": "xy-edge__capsule_aind_z_1_get_multichannel_3-capsule_aind_z_1_pipeline_dispatcher_5",
-			"selected": false,
 			"source": "capsule_aind_z_1_get_multichannel_3",
 			"target": "capsule_aind_z_1_pipeline_dispatcher_5"
 		},
@@ -59,13 +58,11 @@
 		},
 		{
 			"id": "xy-edge__capsule_aind_z_1_puncta_detection_1-capsule_aind_z_1_pipeline_dispatcher_5",
-			"selected": false,
 			"source": "capsule_aind_z_1_puncta_detection_1",
 			"target": "capsule_aind_z_1_pipeline_dispatcher_5"
 		},
 		{
 			"id": "xy-edge__capsule_aind_large_scale_cellpose_4-capsule_aind_z_1_pipeline_dispatcher_5",
-			"selected": false,
 			"source": "capsule_aind_large_scale_cellpose_4",
 			"target": "capsule_aind_z_1_pipeline_dispatcher_5"
 		},
@@ -151,14 +148,9 @@
 				"x": 275.6052460259622,
 				"y": 576.268395755153
 			},
-			"selected": false,
+			"selected": true,
 			"type": "capsule"
 		}
 	],
-	"timestamp": 1747353954631,
-	"viewport": {
-		"x": 86.12044437097211,
-		"y": 253.37500080063143,
-		"zoom": 0.328265406388466
-	}
+	"timestamp": 1747372876495
 }

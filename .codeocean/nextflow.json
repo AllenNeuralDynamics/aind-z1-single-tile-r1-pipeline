@@ -121,7 +121,7 @@
 				"id": "28ca2d26-8e34-4d27-8b69-56afac9938d8",
 				"name": "aind-large-scale-cellpose_single_tile_copy",
 				"slug": "7654769",
-				"commit": "cc062c088e437d5f6a52dae6b4ed92c468bbaba5"
+				"commit": "aec681bd78ebff8bfeaed676574610df50c38d80"
 			},
 			"resources": {
 				"cpus": 32,
@@ -153,7 +153,6 @@
 				"id": "e2535162-90c0-4303-910b-1d6b7faa924a",
 				"name": "aind-z1-pipeline-dispatcher",
 				"slug": "7757962",
-				"commit": "4e0d4527fd68f7cfe2e51ddb6f6b24e1fe9964bd",
 				"arguments": [
 					"clean_up_single_tile_r1"
 				]
