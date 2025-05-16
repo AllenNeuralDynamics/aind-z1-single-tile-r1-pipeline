@@ -7,8 +7,7 @@
 				"id": "065f17f9-1aeb-45e6-bf7f-744adfd9fed3",
 				"name": "aind-z1-puncta-detection",
 				"slug": "8452575",
-				"commit": "ed17b82e938ef1e28090878982f977a779c4a2d5",
-				"image_tag": "bcc5f35afc0a673c64a3c8fc1138f81b"
+				"commit": "ed17b82e938ef1e28090878982f977a779c4a2d5"
 			},
 			"resources": {
 				"cpus": 16,
@@ -49,7 +48,6 @@
 				"name": "aind-z1-pipeline-dispatcher",
 				"slug": "7757962",
 				"commit": "4e0d4527fd68f7cfe2e51ddb6f6b24e1fe9964bd",
-				"image_tag": "8afb77b1e88a8a02acb76ecca5bb1d13",
 				"arguments": [
 					"dispatch-spots"
 				]
@@ -84,8 +82,7 @@
 				"id": "296bbc9d-a6b6-4b70-ab8a-8e6b15dba3aa",
 				"name": "aind-z1-get-multichannel",
 				"slug": "6086715",
-				"commit": "253284c3d181e02832df2de32f6f5c39de6ce13f",
-				"image_tag": "d5c231ca41058ee8230777ed38482e9d"
+				"commit": "253284c3d181e02832df2de32f6f5c39de6ce13f"
 			},
 			"resources": {
 				"cpus": 16,
@@ -124,8 +121,7 @@
 				"id": "28ca2d26-8e34-4d27-8b69-56afac9938d8",
 				"name": "aind-large-scale-cellpose_single_tile_copy",
 				"slug": "7654769",
-				"commit": "cc062c088e437d5f6a52dae6b4ed92c468bbaba5",
-				"image_tag": "2059f8f61a74beb251d7c55c925d0154"
+				"commit": "cc062c088e437d5f6a52dae6b4ed92c468bbaba5"
 			},
 			"resources": {
 				"cpus": 32,
@@ -158,7 +154,6 @@
 				"name": "aind-z1-pipeline-dispatcher",
 				"slug": "7757962",
 				"commit": "4e0d4527fd68f7cfe2e51ddb6f6b24e1fe9964bd",
-				"image_tag": "8afb77b1e88a8a02acb76ecca5bb1d13",
 				"arguments": [
 					"clean_up_single_tile_r1"
 				]
@@ -168,6 +163,23 @@
 				"memory": 32
 			},
 			"inputs": [
+				{
+					"id": "1DADMEBpq0pX39Sf",
+					"source_id": "33dabcf4-ef15-46f8-b791-f3c45876544c",
+					"type": "dataset",
+					"name": "single_tile_r1_dataset",
+					"source_path": "single_tile_r1_dataset/SPIM/derivatives/processing_manifest.json",
+					"collect": true
+				},
+				{
+					"id": "BG2xLWoXf8S5szAW",
+					"source_id": "33dabcf4-ef15-46f8-b791-f3c45876544c",
+					"type": "dataset",
+					"name": "single_tile_r1_dataset",
+					"source_path": "single_tile_r1_dataset/*.json",
+					"target_path": "input_aind_metadata",
+					"collect": true
+				},
 				{
 					"id": "z6QKMIu17g3HQhV5",
 					"source_id": "capsule_aind_large_scale_cellpose_4",

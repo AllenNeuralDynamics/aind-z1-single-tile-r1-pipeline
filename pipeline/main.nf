@@ -1,5 +1,5 @@
 #!/usr/bin/env nextflow
-// hash:sha256:c759f1317854850eee1b89945fcabec0dce3ee7a688ab6b6470c3fcbd5bfba85
+// hash:sha256:bdc7d87f799ca601512a54ee88476faf93437ce89800cc2a8aef39bbe3ca1335
 
 nextflow.enable.dsl = 1
 
@@ -15,14 +15,16 @@ capsule_aind_z_1_pipeline_dispatcher_2_to_capsule_aind_z_1_get_multichannel_3_7 
 capsule_aind_z_1_puncta_detection_1_to_capsule_aind_z_1_get_multichannel_3_8 = channel.create()
 single_tile_r1_dataset_to_aind_large_scale_cellpose_single_tile_copy_9 = channel.fromPath(params.single_tile_r1_dataset_url + "/SPIM/*.zarr", type: 'any')
 single_tile_r1_dataset_to_aind_large_scale_cellpose_single_tile_copy_10 = channel.fromPath(params.single_tile_r1_dataset_url + "/SPIM/derivatives/processing_manifest.json", type: 'any')
-capsule_aind_large_scale_cellpose_4_to_capsule_aind_z_1_pipeline_dispatcher_5_11 = channel.create()
-capsule_aind_z_1_puncta_detection_1_to_capsule_aind_z_1_pipeline_dispatcher_5_12 = channel.create()
-capsule_aind_z_1_get_multichannel_3_to_capsule_aind_z_1_pipeline_dispatcher_5_13 = channel.create()
+single_tile_r1_dataset_to_aind_z1_pipeline_dispatcher_11 = channel.fromPath(params.single_tile_r1_dataset_url + "/SPIM/derivatives/processing_manifest.json", type: 'any')
+single_tile_r1_dataset_to_aind_z1_pipeline_dispatcher_12 = channel.fromPath(params.single_tile_r1_dataset_url + "/*.json", type: 'any')
+capsule_aind_large_scale_cellpose_4_to_capsule_aind_z_1_pipeline_dispatcher_5_13 = channel.create()
+capsule_aind_z_1_puncta_detection_1_to_capsule_aind_z_1_pipeline_dispatcher_5_14 = channel.create()
+capsule_aind_z_1_get_multichannel_3_to_capsule_aind_z_1_pipeline_dispatcher_5_15 = channel.create()
 
 // capsule - aind-z1-puncta-detection
 process capsule_aind_z_1_puncta_detection_1 {
 	tag 'capsule-8452575'
-	container "$REGISTRY_HOST/capsule/065f17f9-1aeb-45e6-bf7f-744adfd9fed3:bcc5f35afc0a673c64a3c8fc1138f81b"
+	container "$REGISTRY_HOST/capsule/065f17f9-1aeb-45e6-bf7f-744adfd9fed3"
 
 	cpus 16
 	memory '61 GB'
@@ -36,7 +38,7 @@ process capsule_aind_z_1_puncta_detection_1 {
 
 	output:
 	path 'capsule/results/*' into capsule_aind_z_1_puncta_detection_1_to_capsule_aind_z_1_get_multichannel_3_8
-	path 'capsule/results/*' into capsule_aind_z_1_puncta_detection_1_to_capsule_aind_z_1_pipeline_dispatcher_5_12
+	path 'capsule/results/*' into capsule_aind_z_1_puncta_detection_1_to_capsule_aind_z_1_pipeline_dispatcher_5_14
 
 	script:
 	"""
@@ -70,7 +72,7 @@ process capsule_aind_z_1_puncta_detection_1 {
 // capsule - aind-z1-pipeline-dispatcher
 process capsule_aind_z_1_pipeline_dispatcher_2 {
 	tag 'capsule-7757962'
-	container "$REGISTRY_HOST/capsule/e2535162-90c0-4303-910b-1d6b7faa924a:8afb77b1e88a8a02acb76ecca5bb1d13"
+	container "$REGISTRY_HOST/capsule/e2535162-90c0-4303-910b-1d6b7faa924a"
 
 	cpus 4
 	memory '32 GB'
@@ -115,7 +117,7 @@ process capsule_aind_z_1_pipeline_dispatcher_2 {
 // capsule - aind-z1-get-multichannel
 process capsule_aind_z_1_get_multichannel_3 {
 	tag 'capsule-6086715'
-	container "$REGISTRY_HOST/capsule/296bbc9d-a6b6-4b70-ab8a-8e6b15dba3aa:d5c231ca41058ee8230777ed38482e9d"
+	container "$REGISTRY_HOST/capsule/296bbc9d-a6b6-4b70-ab8a-8e6b15dba3aa"
 
 	cpus 16
 	memory '128 GB'
@@ -126,7 +128,7 @@ process capsule_aind_z_1_get_multichannel_3 {
 	path 'capsule/data/spots_folder/' from capsule_aind_z_1_puncta_detection_1_to_capsule_aind_z_1_get_multichannel_3_8.collect()
 
 	output:
-	path 'capsule/results/*' into capsule_aind_z_1_get_multichannel_3_to_capsule_aind_z_1_pipeline_dispatcher_5_13
+	path 'capsule/results/*' into capsule_aind_z_1_get_multichannel_3_to_capsule_aind_z_1_pipeline_dispatcher_5_15
 
 	script:
 	"""
@@ -160,7 +162,7 @@ process capsule_aind_z_1_get_multichannel_3 {
 // capsule - aind-large-scale-cellpose_single_tile_copy
 process capsule_aind_large_scale_cellpose_4 {
 	tag 'capsule-7654769'
-	container "$REGISTRY_HOST/capsule/28ca2d26-8e34-4d27-8b69-56afac9938d8:2059f8f61a74beb251d7c55c925d0154"
+	container "$REGISTRY_HOST/capsule/28ca2d26-8e34-4d27-8b69-56afac9938d8"
 
 	cpus 32
 	memory '128 GB'
@@ -173,7 +175,7 @@ process capsule_aind_large_scale_cellpose_4 {
 
 	output:
 	path 'capsule/results/segmentation_mask.zarr' into capsule_aind_large_scale_cellpose_4_to_capsule_aind_z_1_puncta_detection_1_2
-	path 'capsule/results/*' into capsule_aind_large_scale_cellpose_4_to_capsule_aind_z_1_pipeline_dispatcher_5_11
+	path 'capsule/results/*' into capsule_aind_large_scale_cellpose_4_to_capsule_aind_z_1_pipeline_dispatcher_5_13
 
 	script:
 	"""
@@ -207,7 +209,7 @@ process capsule_aind_large_scale_cellpose_4 {
 // capsule - aind-z1-pipeline-dispatcher
 process capsule_aind_z_1_pipeline_dispatcher_5 {
 	tag 'capsule-7757962'
-	container "$REGISTRY_HOST/capsule/e2535162-90c0-4303-910b-1d6b7faa924a:8afb77b1e88a8a02acb76ecca5bb1d13"
+	container "$REGISTRY_HOST/capsule/e2535162-90c0-4303-910b-1d6b7faa924a"
 
 	cpus 4
 	memory '32 GB'
@@ -215,9 +217,11 @@ process capsule_aind_z_1_pipeline_dispatcher_5 {
 	publishDir "$RESULTS_PATH", saveAs: { filename -> new File(filename).getName() }
 
 	input:
-	path 'capsule/data/cell_segmentation/' from capsule_aind_large_scale_cellpose_4_to_capsule_aind_z_1_pipeline_dispatcher_5_11.collect()
-	path 'capsule/data/puncta_detection/' from capsule_aind_z_1_puncta_detection_1_to_capsule_aind_z_1_pipeline_dispatcher_5_12.collect()
-	path 'capsule/data/puncta_statistics/' from capsule_aind_z_1_get_multichannel_3_to_capsule_aind_z_1_pipeline_dispatcher_5_13.collect()
+	path 'capsule/data/' from single_tile_r1_dataset_to_aind_z1_pipeline_dispatcher_11.collect()
+	path 'capsule/data/input_aind_metadata/' from single_tile_r1_dataset_to_aind_z1_pipeline_dispatcher_12.collect()
+	path 'capsule/data/cell_segmentation/' from capsule_aind_large_scale_cellpose_4_to_capsule_aind_z_1_pipeline_dispatcher_5_13.collect()
+	path 'capsule/data/puncta_detection/' from capsule_aind_z_1_puncta_detection_1_to_capsule_aind_z_1_pipeline_dispatcher_5_14.collect()
+	path 'capsule/data/puncta_statistics/' from capsule_aind_z_1_get_multichannel_3_to_capsule_aind_z_1_pipeline_dispatcher_5_15.collect()
 
 	output:
 	path 'capsule/results/*'
