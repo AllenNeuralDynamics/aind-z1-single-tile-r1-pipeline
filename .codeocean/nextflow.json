@@ -7,7 +7,8 @@
 				"id": "065f17f9-1aeb-45e6-bf7f-744adfd9fed3",
 				"name": "aind-z1-puncta-detection",
 				"slug": "8452575",
-				"commit": "ed17b82e938ef1e28090878982f977a779c4a2d5"
+				"commit": "ed17b82e938ef1e28090878982f977a779c4a2d5",
+				"image_tag": "bcc5f35afc0a673c64a3c8fc1138f81b"
 			},
 			"resources": {
 				"cpus": 16,
@@ -47,7 +48,8 @@
 				"id": "e2535162-90c0-4303-910b-1d6b7faa924a",
 				"name": "aind-z1-pipeline-dispatcher",
 				"slug": "7757962",
-				"commit": "09d30d44b5ed9574f91f664b0ea163fb15a81c69",
+				"commit": "06c4ebca8c60797d20796c144eea2f93338d1f85",
+				"image_tag": "8afb77b1e88a8a02acb76ecca5bb1d13",
 				"arguments": [
 					"dispatch-spots"
 				]
@@ -82,7 +84,8 @@
 				"id": "296bbc9d-a6b6-4b70-ab8a-8e6b15dba3aa",
 				"name": "aind-z1-get-multichannel",
 				"slug": "6086715",
-				"commit": "253284c3d181e02832df2de32f6f5c39de6ce13f"
+				"commit": "253284c3d181e02832df2de32f6f5c39de6ce13f",
+				"image_tag": "d5c231ca41058ee8230777ed38482e9d"
 			},
 			"resources": {
 				"cpus": 16,
@@ -121,7 +124,8 @@
 				"id": "28ca2d26-8e34-4d27-8b69-56afac9938d8",
 				"name": "aind-large-scale-cellpose_single_tile_copy",
 				"slug": "7654769",
-				"commit": "aec681bd78ebff8bfeaed676574610df50c38d80"
+				"commit": "aec681bd78ebff8bfeaed676574610df50c38d80",
+				"image_tag": "2059f8f61a74beb251d7c55c925d0154"
 			},
 			"resources": {
 				"cpus": 32,
@@ -153,6 +157,8 @@
 				"id": "e2535162-90c0-4303-910b-1d6b7faa924a",
 				"name": "aind-z1-pipeline-dispatcher",
 				"slug": "7757962",
+				"commit": "06c4ebca8c60797d20796c144eea2f93338d1f85",
+				"image_tag": "8afb77b1e88a8a02acb76ecca5bb1d13",
 				"arguments": [
 					"clean_up_single_tile_r1"
 				]

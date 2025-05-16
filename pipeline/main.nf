@@ -1,5 +1,5 @@
 #!/usr/bin/env nextflow
-// hash:sha256:57cf0bf0472717759d40250d96b54b6ac0c32479deb4cfe3a111586d7fdcd4f9
+// hash:sha256:e0283aa10fb121b31723c697e0990b14a46998806b69d3de74d0599e719d645a
 
 nextflow.enable.dsl = 1
 
@@ -24,7 +24,7 @@ capsule_aind_z_1_get_multichannel_3_to_capsule_aind_z_1_pipeline_dispatcher_5_15
 // capsule - aind-z1-puncta-detection
 process capsule_aind_z_1_puncta_detection_1 {
 	tag 'capsule-8452575'
-	container "$REGISTRY_HOST/capsule/065f17f9-1aeb-45e6-bf7f-744adfd9fed3"
+	container "$REGISTRY_HOST/capsule/065f17f9-1aeb-45e6-bf7f-744adfd9fed3:bcc5f35afc0a673c64a3c8fc1138f81b"
 
 	cpus 16
 	memory '61 GB'
@@ -72,7 +72,7 @@ process capsule_aind_z_1_puncta_detection_1 {
 // capsule - aind-z1-pipeline-dispatcher
 process capsule_aind_z_1_pipeline_dispatcher_2 {
 	tag 'capsule-7757962'
-	container "$REGISTRY_HOST/capsule/e2535162-90c0-4303-910b-1d6b7faa924a"
+	container "$REGISTRY_HOST/capsule/e2535162-90c0-4303-910b-1d6b7faa924a:8afb77b1e88a8a02acb76ecca5bb1d13"
 
 	cpus 4
 	memory '32 GB'
@@ -101,7 +101,7 @@ process capsule_aind_z_1_pipeline_dispatcher_2 {
 
 	echo "[${task.tag}] cloning git repo..."
 	git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-7757962.git" capsule-repo
-	git -C capsule-repo checkout 09d30d44b5ed9574f91f664b0ea163fb15a81c69 --quiet
+	git -C capsule-repo checkout 06c4ebca8c60797d20796c144eea2f93338d1f85 --quiet
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
@@ -117,7 +117,7 @@ process capsule_aind_z_1_pipeline_dispatcher_2 {
 // capsule - aind-z1-get-multichannel
 process capsule_aind_z_1_get_multichannel_3 {
 	tag 'capsule-6086715'
-	container "$REGISTRY_HOST/capsule/296bbc9d-a6b6-4b70-ab8a-8e6b15dba3aa"
+	container "$REGISTRY_HOST/capsule/296bbc9d-a6b6-4b70-ab8a-8e6b15dba3aa:d5c231ca41058ee8230777ed38482e9d"
 
 	cpus 16
 	memory '128 GB'
@@ -162,7 +162,7 @@ process capsule_aind_z_1_get_multichannel_3 {
 // capsule - aind-large-scale-cellpose_single_tile_copy
 process capsule_aind_large_scale_cellpose_4 {
 	tag 'capsule-7654769'
-	container "$REGISTRY_HOST/capsule/28ca2d26-8e34-4d27-8b69-56afac9938d8"
+	container "$REGISTRY_HOST/capsule/28ca2d26-8e34-4d27-8b69-56afac9938d8:2059f8f61a74beb251d7c55c925d0154"
 
 	cpus 32
 	memory '128 GB'
@@ -209,7 +209,7 @@ process capsule_aind_large_scale_cellpose_4 {
 // capsule - aind-z1-pipeline-dispatcher
 process capsule_aind_z_1_pipeline_dispatcher_5 {
 	tag 'capsule-7757962'
-	container "$REGISTRY_HOST/capsule/e2535162-90c0-4303-910b-1d6b7faa924a"
+	container "$REGISTRY_HOST/capsule/e2535162-90c0-4303-910b-1d6b7faa924a:8afb77b1e88a8a02acb76ecca5bb1d13"
 
 	cpus 4
 	memory '32 GB'
@@ -242,6 +242,7 @@ process capsule_aind_z_1_pipeline_dispatcher_5 {
 
 	echo "[${task.tag}] cloning git repo..."
 	git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-7757962.git" capsule-repo
+	git -C capsule-repo checkout 06c4ebca8c60797d20796c144eea2f93338d1f85 --quiet
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 
