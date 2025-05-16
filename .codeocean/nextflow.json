@@ -47,7 +47,7 @@
 				"id": "e2535162-90c0-4303-910b-1d6b7faa924a",
 				"name": "aind-z1-pipeline-dispatcher",
 				"slug": "7757962",
-				"commit": "4e0d4527fd68f7cfe2e51ddb6f6b24e1fe9964bd",
+				"commit": "09d30d44b5ed9574f91f664b0ea163fb15a81c69",
 				"arguments": [
 					"dispatch-spots"
 				]
