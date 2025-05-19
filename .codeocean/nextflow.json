@@ -48,7 +48,7 @@
 				"id": "e2535162-90c0-4303-910b-1d6b7faa924a",
 				"name": "aind-z1-pipeline-dispatcher",
 				"slug": "7757962",
-				"commit": "06c4ebca8c60797d20796c144eea2f93338d1f85",
+				"commit": "091acdf6d9c36d272782f8212c9c4ae99e672324",
 				"image_tag": "8afb77b1e88a8a02acb76ecca5bb1d13",
 				"arguments": [
 					"dispatch-spots"
@@ -124,8 +124,8 @@
 				"id": "28ca2d26-8e34-4d27-8b69-56afac9938d8",
 				"name": "aind-large-scale-cellpose_single_tile_copy",
 				"slug": "7654769",
-				"commit": "aec681bd78ebff8bfeaed676574610df50c38d80",
-				"image_tag": "2059f8f61a74beb251d7c55c925d0154"
+				"commit": "b95cbd3ca3d0f3fb27561a71b6760d3bc45729fd",
+				"image_tag": "abdfeec9dc3833d420123ff901c021b8"
 			},
 			"resources": {
 				"cpus": 32,
@@ -157,7 +157,7 @@
 				"id": "e2535162-90c0-4303-910b-1d6b7faa924a",
 				"name": "aind-z1-pipeline-dispatcher",
 				"slug": "7757962",
-				"commit": "06c4ebca8c60797d20796c144eea2f93338d1f85",
+				"commit": "091acdf6d9c36d272782f8212c9c4ae99e672324",
 				"image_tag": "8afb77b1e88a8a02acb76ecca5bb1d13",
 				"arguments": [
 					"clean_up_single_tile_r1"
