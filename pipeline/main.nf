@@ -1,5 +1,5 @@
 #!/usr/bin/env nextflow
-// hash:sha256:c147af8b4bcce61f59b73b0b98c26e6a743358552e4bc03bdb440584decbfa2e
+// hash:sha256:c4f49f5167b1d275810d7d096134f37b9c60fb7215477475238aa544966fe34b
 
 nextflow.enable.dsl = 1
 
@@ -193,7 +193,7 @@ process capsule_aind_large_scale_cellpose_4 {
 
 	echo "[${task.tag}] cloning git repo..."
 	git clone "https://\$GIT_ACCESS_TOKEN@\$GIT_HOST/capsule-7654769.git" capsule-repo
-	git -C capsule-repo checkout b95cbd3ca3d0f3fb27561a71b6760d3bc45729fd --quiet
+	git -C capsule-repo checkout d5bec3fb06de97e16593a8517d48224b32bc3902 --quiet
 	mv capsule-repo/code capsule/code
 	rm -rf capsule-repo
 

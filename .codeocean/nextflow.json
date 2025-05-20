@@ -124,7 +124,7 @@
 				"id": "28ca2d26-8e34-4d27-8b69-56afac9938d8",
 				"name": "aind-large-scale-cellpose_single_tile_copy",
 				"slug": "7654769",
-				"commit": "b95cbd3ca3d0f3fb27561a71b6760d3bc45729fd",
+				"commit": "d5bec3fb06de97e16593a8517d48224b32bc3902",
 				"image_tag": "abdfeec9dc3833d420123ff901c021b8"
 			},
 			"resources": {
